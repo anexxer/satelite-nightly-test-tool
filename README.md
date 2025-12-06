@@ -1,4 +1,4 @@
-# Hex20 Satellite Telemetry Dashboard (Full Stack)
+# Satellite Telemetry Dashboard
 
 
 This project contains a full-stack application for monitoring satellite telemetry with real-time anomaly detection.
