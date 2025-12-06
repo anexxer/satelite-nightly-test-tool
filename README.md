@@ -11,10 +11,41 @@ This project contains a full-stack application for monitoring satellite telemetr
 **[Watch the Demo Video](./demo.mp4)**
 
 
-## Structure
 
-*   **/backend**: Python FastAPI server with AI Models (Isolation Forest) and Telemetry Simulation.
-*   **/frontend**: React (Vite) application for the dashboard UI.
+## System Architecture
+
+The project mimics a real-world satellite ground station setup with two main components:
+
+### 1. Backend (Python/FastAPI)
+The backend acts as the satellite simulator and processing engine.
+
+*   **Telemetry Generator (`src/telemetry/generator.py`)**:
+    *   Simulates realistic orbital dynamics using sine waves for temperature and solar currents.
+    *   Generates 12-dimensional feature vectors: `[battery, solar, temp, cpu, extra0...extra7]`.
+    *   Injects random "noise" and anomalies (battery drops, temp spikes) to test system resilience.
+*   **AI Anomaly Detection (`src/ai/anomaly_detector.py`)**:
+    *   **Algorithm**: Uses an **Isolation Forest** model (trained on "normal" orbital data) to identify outliers.
+    *   **Inference**: Every incoming telemetry point is scored in real-time. If the model detects a deviation from the learned pattern, it flags it as an anomaly (`iso_flag`).
+*   **API Server (`src/api/server.py`)**:
+    *   Exposes endpoints to stream telemetry and control the simulation.
+    *   Handles the logic for "Inject Anomaly" requests from the frontend.
+
+### 2. Frontend (React/Vite)
+The frontend is a mission control dashboard built with modern web technologies.
+
+*   **Real-time Visualization**: Polls the backend API every second to update charts.
+*   **Health Status**:
+    *   **Normal**: All parameters within nominal ranges.
+    *   **Warning**: Small deviations or AI-flagged anomalies.
+    *   **Critical**: Rule-based violations (e.g., Battery < 3.2V, Temp > 70°C).
+*   **Interactive Controls**: Allows operators to inject specific faults (Battery Failure, Thermal Runaway, Comm Loss) to verify the AI's response.
+
+## Directory Structure Details
+
+*   **/backend/model**: Contains the pre-trained `.joblib` models.
+*   **/backend/data**: Stores raw `.bin` telemetry logs (as per requirements).
+*   **/frontend/src/lib**: Contains the API client logic.
+
 
 ## Prerequisites
 
