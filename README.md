@@ -8,7 +8,7 @@ This project contains a full-stack application for monitoring satellite telemetr
 ![Dashboard Overview](./Screenshot%20(135).png)
 ![Anomaly Detection](./Screenshot%20(136).png)
 
-**[Watch the Demo Video](https://youtu.be/2DqDvfQ__7w)**
+**[Watch the Demo Video](https://youtu.be/v-s4kzgWZLE)**
 
 
 
