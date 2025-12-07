@@ -25,6 +25,7 @@ The backend acts as the satellite simulator and processing engine.
     *   Injects random "noise" and anomalies (battery drops, temp spikes) to test system resilience.
 *   **AI Anomaly Detection (`src/ai/anomaly_detector.py`)**:
     *   **Algorithm**: Uses an **Isolation Forest** model (trained on "normal" orbital data) to identify outliers.
+    *   **Training**: If you want to know how the models were created, check out the [model training tool](https://github.com/your-username/model-training-tool).
     *   **Inference**: Every incoming telemetry point is scored in real-time. If the model detects a deviation from the learned pattern, it flags it as an anomaly (`iso_flag`).
 *   **API Server (`src/api/server.py`)**:
     *   Exposes endpoints to stream telemetry and control the simulation.
