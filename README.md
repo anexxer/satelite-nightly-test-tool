@@ -30,6 +30,12 @@ The backend acts as the satellite simulator and processing engine.
 *   **API Server (`src/api/server.py`)**:
     *   Exposes endpoints to stream telemetry and control the simulation.
     *   Handles the logic for "Inject Anomaly" requests from the frontend.
+*   **Key API Endpoints**
+
+- `GET /telemetry/stream` – returns latest N telemetry points (for charts)
+- `GET /telemetry/anomalies` – returns AI-flagged anomalous points
+- `POST /control/inject` – injects a requested anomaly type (battery/temp/comm)
+- `POST /process/run` – runs one processing cycle over current telemetry (for "Run Now" button / nightly job).
 
 ### 2. Frontend (React/Vite)
 The frontend is a mission control dashboard built with modern web technologies.
